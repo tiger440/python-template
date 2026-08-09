@@ -43,6 +43,14 @@ known-first-party = ["trust_template"]
 [tool.ruff.format]
 docstring-code-format = true
 
+[tool.pyright]
+include = ["src", "tests"]
+pythonVersion = "3.12"
+typeCheckingMode = "strict"
+venvPath = "."
+venv = ".venv"
+reportMissingTypeStubs = true
+
 [dependency-groups]
 dev = [
   "ruff>=0.6",
