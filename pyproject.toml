@@ -43,6 +43,18 @@ known-first-party = ["trust_template"]
 [tool.ruff.format]
 docstring-code-format = true
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --cov=trust_template --cov-report=term-missing --cov-fail-under=85"
+
+[tool.coverage.run]
+branch = true
+source = ["trust_template"]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:"]
+
 [tool.pyright]
 include = ["src", "tests"]
 pythonVersion = "3.12"
