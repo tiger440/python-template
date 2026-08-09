@@ -21,6 +21,8 @@ OLD_DISTRIBUTION = "trust-template"
 ROOT = Path(__file__).resolve().parent.parent
 
 TEXT_SUFFIXES = frozenset({".py", ".toml", ".md", ".yml", ".yaml", ".cfg", ".txt", ".json"})
+# Extensionless files that still hold the package name.
+TEXT_NAMES = frozenset({"Dockerfile", "Makefile", ".dockerignore", ".editorconfig"})
 SKIP_DIRS = frozenset({".git", ".venv", ".ruff_cache", ".pytest_cache", "site", "dist", "build"})
 SKIP_FILES = frozenset({"uv.lock"})
 
@@ -61,7 +63,9 @@ def iter_text_files() -> list[Path]:
             continue
         if any(part in SKIP_DIRS for part in path.relative_to(ROOT).parts):
             continue
-        if path.name in SKIP_FILES or path.suffix not in TEXT_SUFFIXES:
+        if path.name in SKIP_FILES:
+            continue
+        if path.suffix not in TEXT_SUFFIXES and path.name not in TEXT_NAMES:
             continue
         files.append(path)
     return files
